@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Gaegu&family=Tilt+Neon&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Gaegu", cursive;
+  font-weight: bold;
+}
+
+/* Reset */
+
+ul,
+ol,
+li,
+dl,
+dt,
+dd {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button:focus,
+button:active,
+input:focus,
+input:active {
+  outline: none;
+  box-shadow: none;
+}
+
+button,
+input,
+textarea {
+  font-family: "DM Sans", sans-serif;
+}
+
+input {
+  border: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
+}
+
+.app-container {
+  width: 30vw;
+  height: 50vh;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  padding: 0 30px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  background-color: #8785a2;
+  color: #f6f6f6;
+  font-size: 18px;
+}
+
+.filter-btn-group {
+  display: flex;
+}
+
+.filter-btn:not(:last-child) {
+  margin-right: 20px;
+}
+
+/* Item List */
+.item-list-container {
+  height: 80%;
+  padding: 20px 30px;
+  background-color: #ffe2e2;
+  color: #8785a2;
+}
+
+.item-list-container input {
+  margin-right: 8px;
+}
+
+.item-list-container li {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Tilt Neon", cursive;
+}
+
+/* Add  */
+.add-input-container {
+  background-color: #8785a2;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.item-input-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+  width: 100%;
+  height: 10%;
+}
+
+.add-input-container .add-text {
+  width: 28vw;
+  height: 3vh;
+  padding: 10px 20px;
+}
+
+.add-input-container .add-btn {
+  background-color: #f6f6f6;
+  color: #8785a2;
+  width: 2vw;
+  height: 3vh;
+}
