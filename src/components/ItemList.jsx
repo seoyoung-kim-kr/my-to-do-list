@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-export default function ItemList({ itemName, itemStatus }) {
-  const [checked, setChecked] = useState(false);
+export default function ItemList({ itemName, itemStatus, getChecked }) {
+  const [checked, setChecked] = useState(true);
 
   const handleChange = () => {
     setChecked((prev) => !prev);
+    getChecked(checked);
   };
 
   return (
@@ -15,7 +16,12 @@ export default function ItemList({ itemName, itemStatus }) {
         value={checked}
         onChange={handleChange}
       />
-      <label htmlFor={`${itemName}-check`}>{itemName}</label>
+      {!checked && (
+        <label className="completed-item" htmlFor={`${itemName}-check`}>
+          {itemName}
+        </label>
+      )}
+      {checked && <label htmlFor={`${itemName}-check`}>{itemName}</label>}
     </>
   );
 }

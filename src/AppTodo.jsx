@@ -1,43 +1,53 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./AppTodo.css";
 import { FaMoon } from "react-icons/fa";
 import ItemList from "./components/ItemList";
 import { TiAdjustBrightness, TiTrash } from "react-icons/ti";
 
 export default function AppTodo() {
+  const [checked, setChecked] = useState(true);
   const [inputItem, setInputItem] = useState({
-    id: "",
     item: "",
     status: "active",
   });
   const [itemList, setItemList] = useState(initialList);
   const [itemStatus, setItemStatus] = useState("all");
 
+  useEffect(() => {
+    setItemList(JSON.parse(localStorage.getItem("item")).item);
+    console.log(itemList);
+  }, []);
+
   const handleChange = (e) => {
     const { value } = e.target;
     setInputItem({ ...inputItem, item: value });
     console.log(inputItem);
+    saveLocal();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
+  const saveLocal = () => {
+    const itemListObj = { item: itemList };
+    window.localStorage.setItem("item", JSON.stringify(itemListObj));
+  };
+
+  let nextId = useRef(3);
   const handleAdd = () => {
     if (inputItem.item) {
-      setItemList([...itemList, inputItem]);
+      setItemList([
+        ...itemList,
+        { id: nextId.current, item: inputItem.item, status: inputItem.status },
+      ]);
       setInputItem({ ...inputItem, item: "" });
+      nextId.current += 1;
+      console.log(itemList);
     }
-    console.log(itemList);
     // localStorage.setItem(inputItem.item, inputItem.status);
   };
 
-  // const handleDelete = (itemKey) => {
-  //   const filteredList = [...ItemList].filter(
-  //     (item, index) => index !== itemKey
-  //   );
-  //   setItemList(filteredList);
-  // };
   const handleFilterAll = () => {
     setItemStatus("all");
   };
@@ -48,6 +58,22 @@ export default function AppTodo() {
 
   const handleFilterCompleted = () => {
     setItemStatus("completed");
+  };
+
+  const getChecked = (isCheck) => {
+    if (isCheck) setChecked((prev) => !prev);
+    console.log(checked);
+  };
+
+  const getID = (id) => {
+    if (checked)
+      setItemList(
+        itemList.map((item) => {
+          if (item.id === id) item.status = "completed";
+          return item;
+        })
+      );
+    console.log(itemList);
   };
 
   return (
@@ -75,7 +101,12 @@ export default function AppTodo() {
             if (itemList.status == itemStatus || itemStatus == "all") {
               return (
                 <li key={i}>
-                  <ItemList itemName={itemList.item} itemStatus={itemStatus} />
+                  <ItemList
+                    itemName={itemList.item}
+                    itemStatus={itemStatus}
+                    getChecked={getChecked}
+                    getID={() => getID(itemList.item.id)}
+                  />
                   {/* <TiTrash onClick={handleDelete}></TiTrash> */}
                 </li>
               );
@@ -108,10 +139,12 @@ export default function AppTodo() {
 
 const initialList = [
   {
+    id: 1,
     item: "공부하기",
     status: "active",
   },
   {
+    id: 2,
     item: "강의듣기",
     status: "completed",
   },

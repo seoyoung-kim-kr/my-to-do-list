@@ -96,6 +96,10 @@ header {
   font-family: "Tilt Neon", cursive;
 }
 
+.completed-item {
+  text-decoration: line-through;
+}
+
 /* Add  */
 .add-input-container {
   background-color: #8785a2;
